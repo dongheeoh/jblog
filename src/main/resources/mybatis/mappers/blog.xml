@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bolg">
+	<select id="getList" resultType="blogvo" parameterType="blogvo">
+		<![CDATA[
+			select a.user_no,a.title,a.logo,b.name,c.title as post_title,c.reg_date from blog a,category b, post c
+		]]>
+	</select>
+	
+</mapper>
