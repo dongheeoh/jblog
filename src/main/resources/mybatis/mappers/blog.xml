@@ -1,10 +1,88 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="bolg">
-	<select id="getList" resultType="blogvo" parameterType="blogvo">
+<mapper namespace="blog">
+	<select id="getNo" resultType="blogvo" parameterType="long">
 		<![CDATA[
-			select a.user_no,a.title,a.logo,b.name,c.title as post_title,c.reg_date from blog a,category b, post c
+			select title,logo from blog where user_no = #{no}
 		]]>
 	</select>
+	
+	<select id="getId" resultType="Long" parameterType="blogvo">
+		<![CDATA[
+			select no from user where id=#{id};
+		]]>
+	</select>
+	
+	<select id="getUserNo" resultType="categoryvo" parameterType="long">
+		<![CDATA[
+			 select no,name,description,reg_date, user_no 
+						  from category 
+						 	where user_no = #{userNo};
+		]]>
+	</select>
+	
+	<select id="getPost" parameterType="map" resultType="postvo">
+		<![CDATA[
+				select a.no, a.title, a.content, a.reg_date, a.category_no 
+					  from post a, category b 
+							 where a.category_no = b.no 
+					   			and a.category_no = #{categoryNo} 
+					  				 and b.user_no = #{userNo}
+					 						 and a.no=#{postNo}
+		]]>		
+	</select>
+	
+	<select id="getPostList" parameterType="map" resultType="postvo">
+		<![CDATA[
+				select a.no, a.title, a.content, a.reg_date, a.category_no
+					  from post a, category b  
+							 where a.category_no = b.no 
+					  				 and a.category_no = #{categoryNo} 
+					 						  and b.user_no =#{userNo}
+		]]>		
+	</select>	
+	
+	<update id="updateAdminBasicInfo" parameterType="map">
+		<![CDATA[
+			update blog set title = #{blogVo.title}
+		]]>
+		<choose>
+			<when test="blogVo.logo == null">
+				where user_no = #{userNo}
+			</when>
+			
+			<otherwise>
+				,logo = #{blogVo.logo} where user_no = #{userNo}
+			</otherwise>
+		</choose>
+	</update>	
+	
+	
+	<insert id="postWrite" parameterType="map">
+		<![CDATA[
+			insert into post values(null, #{blogVo.postTitle}, #{blogVo.contents}, now(), (select no from category where name = #{categoryName} and user_no = #{userNo}))
+		]]>
+	</insert>
+	
+	<insert id="setCategory" parameterType="map">
+		<![CDATA[
+			insert into category values(null, #{categoryVo.name}, #{categoryVo.description}, now(), #{userNo})
+		]]>
+
+		<selectKey keyProperty="no" resultType="long" order="AFTER"> 
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="categoryDelete" parameterType="map">
+		<![CDATA[
+			delete from category 
+			where no = #{categoryNo} and 
+			user_no = #{userNo} and 
+			(select count(*) from post where category_no = #{categoryNo}) = 0
+		]]>
+	</delete>
 	
 </mapper>

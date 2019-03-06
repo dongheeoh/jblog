@@ -21,8 +21,19 @@ public class UserDao {
 		return sqlSession.selectOne( "user.getByid", id );
 	}
 	
-	public int insert( UserVo userVo ) {
-		return sqlSession.insert( "user.insert", userVo );
+	public void insert( UserVo userVo ,String logo) {
+		sqlSession.insert( "user.insert", userVo );
+		String title=sqlSession.selectOne("user.getId", userVo.getNo())+"님의 블로그 입니다.";
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", userVo.getNo());
+		map.put("title", title);
+		map.put("logo",logo);
+		map.put("defaultCategoryName","미분류");
+		map.put("defaultCategoryDescription","기본 카테고리 입니다.");
+		
+		sqlSession.insert("user.insertBlog", map);
+		sqlSession.insert("user.insertDefaultCategory", map);
 	}
 	
 	public UserVo get( String id, String password )  throws UserDaoException {

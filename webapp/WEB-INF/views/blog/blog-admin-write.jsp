@@ -12,10 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><a style="color:white;'" href="${pageContext.servletContext.contextPath }/blog/">Spring 이야기</a></h1>
-			<ul>
-				<c:import url="/WEB-INF/views/include/blogheader.jsp"/>
-			</ul>
+			<c:import url="/WEB-INF/views/include/blogheader.jsp"/>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
@@ -24,21 +21,22 @@
 						<c:param name="menu" value="write"/>
 					</c:import>
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.servletContext.contextPath }/${authUser.id}/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
-			      				<input type="text" size="60" name="title">
+			      				<input type="text" size="60" name="postTitle">
 				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+				      				<c:forEach items="${categoryList }" var="vo">
+										<option value="${vo.name }">${vo.name }</option>
+									</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="contents"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>
@@ -49,9 +47,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
+			<c:import url="/WEB-INF/views/include/blogfooter.jsp"/>
 		</div>
 	</div>
 </body>

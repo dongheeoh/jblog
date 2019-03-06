@@ -35,12 +35,15 @@
 			</bean>
 		</mvc:message-converters>
 
-		
+		<!-- Controller의 Handler의 argument Resolver 등록 -->
+		<mvc:argument-resolvers>
+			<bean
+				class="com.douzone.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
 	<!-- the mvc resouces mapping url(virtual) -->
-	<mvc:resources mapping="/uploads/images/**"
-		location="file:/uploads/" />
+	<mvc:resources mapping="/assets/images/**" location="file:/duzon/uploads/"/>
 
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />

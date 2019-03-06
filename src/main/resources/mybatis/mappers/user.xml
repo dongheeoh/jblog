@@ -2,11 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 	
-	<select id="getByid" resultType="uservo" parameterType="string">
+	<select id="getByid" resultType="string" parameterType="long">
 		<![CDATA[
 		select no, id, name
 		  from user 
 		 where id=#{id }
+		]]>
+	</select>
+	
+	<select id="getId" parameterType="uservo" resultType="string">
+		<![CDATA[
+			select name,id from user where no = #{userNo}
 		]]>
 	</select>
 	
@@ -16,14 +22,32 @@
 		  into user
 		values (null, #{id }, #{name }, #{password },now())		
 		]]>	
+		<selectKey keyProperty="no" resultType="long" order="AFTER"> <!-- 나온느값을 vo에다 세팅 밑에쿼리르 실행하고 이걸실행하기위해 order를 정해줌 -->
+			<!-- KEY PROPERTY는 밑에 쿼리 실행하고 저장할 속성명 리절트타입은 그 속성명의 타입 -->
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	<insert id="insertBlog" parameterType="map">
+		<![CDATA[
+			insert into blog values(#{userNo},#{title},#{logo})
+		]]>	
+	</insert>
+	
+	<insert id="insertDefaultCategory" parameterType="map">
+		<![CDATA[
+			insert into category values(null, #{defaultCategoryName}, #{defaultCategoryDescription}, now(), #{userNo})
+		]]>
 	</insert>
 	
 	<select id="getByidAndPassword" resultType="uservo" parameterType="map">
 		<![CDATA[
 		select no, id,name
-		  from user 
-		 where id=#{id }
-		   and password =#{password }
+		  	from user 
+		 		where id=#{id }
+		  			 and password =#{password }
 		]]>
 	</select>
 	

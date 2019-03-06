@@ -1,32 +1,17 @@
 package com.douzone.mysite.vo;
 
 public class BlogVo {
-	private long user_no;
-	private long post_no;
-	private long category_no;
+	private long userNo;
 	private String title;
 	private String logo;
-	private String name;
-	private String post_title;
-	private String reg_date;
-	private String content;
-	public long getUser_no() {
-		return user_no;
+	private String contents;
+	private String postTitle;
+	private String categoryName;
+	public long getUserNo() {
+		return userNo;
 	}
-	public void setUser_no(long user_no) {
-		this.user_no = user_no;
-	}
-	public long getPost_no() {
-		return post_no;
-	}
-	public void setPost_no(long post_no) {
-		this.post_no = post_no;
-	}
-	public long getCategory_no() {
-		return category_no;
-	}
-	public void setCategory_no(long category_no) {
-		this.category_no = category_no;
+	public void setUserNo(long userNo) {
+		this.userNo = userNo;
 	}
 	public String getTitle() {
 		return title;
@@ -40,37 +25,29 @@ public class BlogVo {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
-	public String getName() {
-		return name;
+	public String getContents() {
+		return contents;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public String getPost_title() {
-		return post_title;
+	public String getPostTitle() {
+		return postTitle;
 	}
-	public void setPost_title(String post_title) {
-		this.post_title = post_title;
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
 	}
-	public String getReg_date() {
-		return reg_date;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	@Override
 	public String toString() {
-		return "BlogVo [user_no=" + user_no + ", post_no=" + post_no + ", category_no=" + category_no + ", title="
-				+ title + ", logo=" + logo + ", name=" + name + ", post_title=" + post_title + ", reg_date=" + reg_date
-				+ ", content=" + content + "]";
+		return "BlogVo [userNo=" + userNo + ", title=" + title + ", logo=" + logo + ", contents=" + contents
+				+ ", postTitle=" + postTitle + ", categoryName=" + categoryName + "]";
 	}
-	
 	
 	
 	

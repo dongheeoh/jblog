@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserVo {
-	private long no;
+	private Long no;
 	@NotEmpty
 	@Length(min=2,max=8)
 	private String id;
@@ -15,12 +15,11 @@ public class UserVo {
 	@NotEmpty
 	@Length(min=2,max=8)
 	private String password;
-	
 	private String join_date;
-	public long getNo() {
+	public Long getNo() {
 		return no;
 	}
-	public void setNo(long no) {
+	public void setNo(Long no) {
 		this.no = no;
 	}
 	public String getId() {
@@ -52,6 +51,8 @@ public class UserVo {
 		return "UserVo [no=" + no + ", id=" + id + ", name=" + name + ", password=" + password + ", join_date="
 				+ join_date + "]";
 	}
+	
+	
 	
 	
 }

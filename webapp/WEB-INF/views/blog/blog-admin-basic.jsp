@@ -12,10 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><a style="color:white;'" href="${pageContext.servletContext.contextPath }/blog/">Spring 이야기</a></h1>
-			<ul>
-				<c:import url="/WEB-INF/views/include/blogheader.jsp"/>
-			</ul>
+			<c:import url="/WEB-INF/views/include/blogheader.jsp"/>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
@@ -24,15 +21,15 @@
 					<c:param name="menu" value="main"/>
 		</c:import>
 				</ul>
-				<form action="" method="post">
+				<form  method="post" action="${pageContext.request.contextPath }/${authUser.id}/admin" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title"></td>
+			      			<td><input type="text" size="40" name="title" value="${blogVo.title }"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blogVo.logo}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
@@ -47,9 +44,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
+			<c:import url="/WEB-INF/views/include/blogfooter.jsp"/>
 		</div>
 	</div>
 </body>

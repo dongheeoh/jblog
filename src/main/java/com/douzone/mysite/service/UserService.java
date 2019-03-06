@@ -16,11 +16,12 @@ public class UserService {
 		return userVo != null;
 	}
 	
-	public void join( UserVo userVo ) {
-		userDao.insert( userVo );
+	public void join( UserVo userVo ,String logo) {
+		userDao.insert( userVo,logo );
 	}
 	
 	public UserVo getUser( String id, String password ) {
+		System.out.println(userDao.get(id,password));
 		return userDao.get( id, password );
 	}
 }

@@ -42,14 +42,11 @@ public class UserController {
 	public String join( @ModelAttribute @Valid  UserVo userVo,BindingResult result,Model model){
 		
 		if(result.hasErrors()) {
-//			List<ObjectError> list= result.getAllErrors();
-//			for(ObjectError error:list) {
-//				System.out.println(error);
-//			}
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
-		userService.join( userVo );
+		userService.join( userVo ,"/assets/images/default.png");
+		System.out.println(userVo);
 		return "redirect:/user/joinsuccess";
 	}
 	
